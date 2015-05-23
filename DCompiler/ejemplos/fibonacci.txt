@@ -1,0 +1,16 @@
+class program{
+	int fibonacci(int param){
+		int var1;
+		int var2;
+		if(param<2){
+			return 1;
+		}
+		var1=fibonacci(param-1);
+		var2=fibonacci(param-2);
+		return var1+var2;
+	}
+	void main(){
+		int res;
+		res=fibonacci(5);
+	}
+}
