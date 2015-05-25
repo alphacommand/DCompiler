@@ -1,0 +1,17 @@
+class fact{
+	int fact(int para){
+		 int result;
+
+       		if(n==1){
+         		return 1;
+		}
+
+       		result = fact(n-1) * n;
+       		return result;
+	}
+	void main(){
+		int val;
+		val = fact(3);
+	}
+}
+

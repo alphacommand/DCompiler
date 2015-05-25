@@ -239,14 +239,15 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 			}
 		}
 		else{
-			
 			var=tablaSimbolos.searchVar(ctx.ID().getText());
-			currentTemp=getTemp();
-			addToCode(assign(currentTemp,var.getPosition()+""));
 			if(var==null){
 				tablaSimbolos.addError("Variable "+ctx.ID().getText()+" not declared (Line: "+ctx.start.getLine()+")");
 				return tablaSimbolos.incorrect();
 			}
+			
+			currentTemp=getTemp();
+			addToCode(assign(currentTemp,var.getPosition()+""));
+			
 		}
 		if(ctx.expression()==null&&ctx.location()==null){
 			tipoActual=null;
