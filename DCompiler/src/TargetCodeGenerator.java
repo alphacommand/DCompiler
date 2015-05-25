@@ -13,7 +13,7 @@ public class TargetCodeGenerator {
 		targetCode="";
 		String[] inputs=code.split("\n");
 		//codigo inicial
-		targetCode+=".globl main\nmain:\nstmfd sp!, {lr}\nLDR R11, =_dataGlobal\npush {lr}\nBL main_0\nB _salir";
+		targetCode+=".globl main\nmain:\nstmfd sp!, {lr}\nLDR R11, =_dataGlobal\npush {lr}\nBL main0\nB _salir\n";
 		for(int i=0;i<inputs.length;i++){
 			String actual=inputs[i].trim();
 			if((!actual.equals(""))&&(!actual.contains("--"))){

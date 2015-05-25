@@ -3,8 +3,9 @@ main:
 stmfd sp!, {lr}
 LDR R11, =_dataGlobal
 push {lr}
-BL main_0
-B _salirfibonacci0:
+BL main0
+B _salir
+fibonacci0:
 pop {R4}
 STR R4,[R11,#0]
 push {lr}
@@ -15,8 +16,7 @@ CMP R4,R5
 MOVLT R4,#1
 MOVGE R4,#0
 BEQ label1
-MOV R4,#0
-LDR R4,[R11,R4]
+MOV R4,#1
 pop {R5}
 push {R4}
 MOV pc,R5
@@ -75,7 +75,7 @@ main0:
 push {lr}
 LDR R4,[R11,#0]
 push {R4}
-MOV R4,#8
+MOV R4,#5
 push {R4}
 BL fibonacci
 pop {R4}
@@ -83,9 +83,6 @@ pop {R5}
 STR R5,[R11,#0]
 MOV R5,#0
 STR R4,[R11,R5]
-LDR R0, =_formatoInt
-	MOV R1, R4	
-	BL printf
 pop {pc}
 _salir:
 mov r0, #0
