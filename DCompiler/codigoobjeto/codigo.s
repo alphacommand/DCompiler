@@ -32,7 +32,7 @@ LDR R4,[R11,R4]
 MOV R5,#1
 SUB R4,R4,R5
 push {R4}
-BL fibonacci
+BL fibonacci0
 pop {R4}
 pop {R5}
 STR R5,[R11,#8]
@@ -53,7 +53,7 @@ LDR R4,[R11,R4]
 MOV R5,#2
 SUB R4,R4,R5
 push {R4}
-BL fibonacci
+BL fibonacci0
 pop {R4}
 pop {R5}
 STR R5,[R11,#8]
@@ -77,7 +77,7 @@ LDR R4,[R11,#0]
 push {R4}
 MOV R4,#5
 push {R4}
-BL fibonacci
+BL fibonacci0
 pop {R4}
 pop {R5}
 STR R5,[R11,#0]

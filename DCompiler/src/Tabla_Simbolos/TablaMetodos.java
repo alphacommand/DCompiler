@@ -64,10 +64,10 @@ public class TablaMetodos {
 	}
 	public String newLabel(Firma metodo){
 		int count=0;
-		String res=metodo.getNombre()+"_"+count;
+		String res=metodo.getNombre()+""+count;
 		boolean found=true;
 		while(found){
-			res=metodo.getNombre()+"_"+count;
+			res=metodo.getNombre()+""+count;
 			found=false;
 			for(int i=0;i<tabla.size();i++){
 				if(res.equals(tabla.get(i).getLabel())){
