@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TablaVariables {
 	private ArrayList<VarDec> tabla;
-	
+	private int startPos=0;
 	//**************************************************************
 	//constructores
 	public TablaVariables(ArrayList<VarDec> tabla){
@@ -47,6 +47,13 @@ public class TablaVariables {
 	public void setTabla(ArrayList<VarDec> tabla) {
 		this.tabla = tabla;
 	}
+	public int getStartPos() {
+		return startPos;
+	}
+	public void setStartPos(int startPos) {
+		this.startPos = startPos;
+	}
+	
 	//***************************************************
 	
 }

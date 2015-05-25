@@ -4,12 +4,14 @@ public class VarDec implements Cloneable{
 	private String nombre;
 	private Tipo tipo;
 	private int longitud;
+	private int position;
 	//*********************************************************
 	//constructores
-	public VarDec(String nombre, Tipo tipo, int longitud){
+	public VarDec(String nombre, Tipo tipo, int longitud,int position){
 		this.nombre=nombre;
 		this.tipo=tipo;
 		this.longitud=longitud;
+		this.position=position;
 	}
 	//*********************************************************
 	//equals
@@ -28,6 +30,9 @@ public class VarDec implements Cloneable{
 			return true;
 		}
 		return false;
+	}
+	public boolean isStruct(){
+		return tipo.isStruct();
 	}
 	public String getNombre() {
 		return nombre;
@@ -57,6 +62,21 @@ public class VarDec implements Cloneable{
 		return "var_name: "+nombre+", tipo: "+tipo.getNombre()+";";
 	}
 	public VarDec clone(){
-		return new VarDec(nombre,(Tipo)tipo.clone(),longitud);
+		return new VarDec(nombre,(Tipo)tipo.clone(),longitud,position);
 	}
+	public int getByteSize(){
+		if(isList()){
+			return tipo.getByteSize()*longitud;
+		}
+		else{
+			return tipo.getByteSize();
+		}
+	}
+	public int getPosition() {
+		return position;
+	}
+	public void setPosition(int position) {
+		this.position = position;
+	}
+	
 }

@@ -18,6 +18,7 @@ public class TablaMetodos {
 	public void entry(Firma element) throws Exception{
 		if(search(element)==null){
 			tabla.add(element);
+			element.setLabel(newLabel(element));
 		}
 		else{
 			throw new Exception("Method "+element+" already exists");
@@ -58,6 +59,22 @@ public class TablaMetodos {
 		String res="";
 		for(int i=0;i<tabla.size();i++){
 			res+=tabla.get(i);
+		}
+		return res;
+	}
+	public String newLabel(Firma metodo){
+		int count=0;
+		String res=metodo.getNombre()+"_"+count;
+		boolean found=true;
+		while(found){
+			res=metodo.getNombre()+"_"+count;
+			found=false;
+			for(int i=0;i<tabla.size();i++){
+				if(res.equals(tabla.get(i).getLabel())){
+					found=true;
+				}
+			}
+			count++;
 		}
 		return res;
 	}

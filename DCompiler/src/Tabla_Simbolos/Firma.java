@@ -6,6 +6,7 @@ public class Firma implements Cloneable{
 	private String nombre;
 	private ArrayList<VarDec> parametros; 
 	private Tipo tipo;
+	String label;
 	//*******************************************************************
 	//constructores
 	public Firma(String nombre, Tipo tipo, ArrayList<VarDec> parametros){
@@ -82,4 +83,11 @@ public class Firma implements Cloneable{
 		}
 		return new Firma(nombre,tipo.clone(),nuevo);
 	}
+	public String getLabel() {
+		return label;
+	}
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	
 }

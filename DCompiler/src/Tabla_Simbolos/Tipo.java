@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Tipo implements Cloneable{
 	private ArrayList<VarDec> atributos;
 	private String nombre;
+	private int size=4;
+	private String temp="-1";
 	//*************************************************************
 	//constructores
 	public Tipo(String nombre, ArrayList<VarDec> atributos){
@@ -18,11 +20,14 @@ public class Tipo implements Cloneable{
 	//*************************************************************
 	//add Atrib agrega un atributo
 	public boolean addAtrib(VarDec atributo){
+		int position=0;
 		for(int x=0;x<atributos.size();x++){
 			if(atributos.get(x).getNombre().equals(atributo.getNombre())){
 				return false;  
 			}
+			position+=atributos.get(x).getByteSize();
 		}
+		atributo.setPosition(position);
 		atributos.add(atributo);
 		return true;
 	}
@@ -76,5 +81,36 @@ public class Tipo implements Cloneable{
 			nuevo.add(atributos.get(i));
 		}
 		return new Tipo(nombre,nuevo);
+	}
+	
+	public int getByteSize(){
+		if(atributos==null){
+			return size;
+		}
+		else{
+			size=0;
+			for(int i=0;i<atributos.size();i++){
+				size+=atributos.get(i).getByteSize();
+			}
+			return size;
+		}
+	}
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
+	public String getTemp() {
+		return temp;
+	}
+	public void setTemp(String temp) {
+		this.temp = temp;
+	}
+	public boolean isStruct(){
+		if(atributos==null){
+			return false;
+		}
+		return true;
 	}
 }

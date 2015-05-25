@@ -180,7 +180,7 @@ uniFactor							//check
 
 factor 							//check
 	: location					#factorLocation
-	| methodCall				#factorMethodCall
+	| methodCall				#factorMethodCall //todavia no
 	| literal					#factorLiteral
 	| '(' expression ')'		#factorExpression
 	;

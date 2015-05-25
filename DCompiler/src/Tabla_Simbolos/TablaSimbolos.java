@@ -7,6 +7,7 @@ public class TablaSimbolos {
 	private Stack<TablaVariables> ambitos;
 	private TablaTipos tipos;
 	private TablaMetodos metodos;
+	private int max=-1;
 	String errors="";
 	//constructor
 	public TablaSimbolos(){
@@ -25,12 +26,14 @@ public class TablaSimbolos {
 		this.errors=errors;
 	}
 	//entrada a un ambito
-	public void enter(){
+	public void enter(int position){
 		ambitos.push(new TablaVariables());
 	}
 	//salida de un ambito
-	public void exit(){
-		ambitos.pop();
+	public int exit(){
+		TablaVariables exit=ambitos.pop();
+		calculateMax();
+		return exit.getStartPos();
 	}
 	//declaracion de un metodo
 	public Tipo entry(Firma metodo){
@@ -106,31 +109,88 @@ public class TablaSimbolos {
 		}
 		return null;
 	}
-	
 	//obtencion de metodo
 	public Firma obtenerFirma(String nombre,ArrayList<VarDec> parametros){
 		Firma temp = new Firma(nombre,null,parametros);
 		return metodos.search(temp);
 	}
+	public String newMethodLabel(Firma a){
+		return metodos.newLabel(a);
+	}
 	public Tipo correct(){
-		return tipos.voidType();
+		return tipos.voidType().clone();
 	}
 	public Tipo incorrect(){
-		return tipos.errorType();
+		return tipos.errorType().clone();
 	}
 	public Tipo intType(){
-		return tipos.intType();
+		return tipos.intType().clone();
 	}
 	public Tipo charType(){
-		return tipos.charType();
+		return tipos.charType().clone();
 	}
 	public Tipo boolType(){
-		return tipos.boolType();
+		return tipos.boolType().clone();
 	}
 	public String getFirmas(){
 		return metodos+"";
 	}
 	public String getTipos(){
 		return tipos+"";
+	}
+	//getters y setters
+	public Stack<TablaVariables> getAmbitos() {
+		return ambitos;
+	}
+	public void setAmbitos(Stack<TablaVariables> ambitos) {
+		this.ambitos = ambitos;
+	}
+	public TablaMetodos getMetodos() {
+		return metodos;
+	}
+	public void setMetodos(TablaMetodos metodos) {
+		this.metodos = metodos;
+	}
+	public void setTipos(TablaTipos tipos) {
+		this.tipos = tipos;
+	}
+	public ArrayList<VarDec> getState(){
+		ArrayList<VarDec> state=new ArrayList<VarDec>();
+		for(int i=1;i<ambitos.size();i++){
+			TablaVariables actual=ambitos.get(i);
+			ArrayList<VarDec> lactual=actual.getTabla();
+			for(int j=0;j<lactual.size();j++){
+				state.add(lactual.get(j));
+			}
+		}
+		return state;
+	}
+	public int getByteSize(){
+		int count=0;
+		for(int i=0;i<ambitos.size();i++){
+			TablaVariables actual=ambitos.get(i);
+			ArrayList<VarDec> lactual=actual.getTabla();
+			for(int j=0;j<lactual.size();j++){
+				count+=lactual.get(j).getByteSize();
+			}
+		}
+		return count;
+	}
+	public void calculateMax(){
+		int cant=getByteSize();
+		if(cant>max){
+			max=cant;
+		}
+	}
+	public int getMax(){
+		return max;
+	}
+	public int endGlobal(){
+		return ambitos.get(1).getStartPos();
+	}
+	public int lastDir(){
+		TablaVariables aFinal=ambitos.get(ambitos.size()-1);
+		ArrayList<VarDec> lFinal=aFinal.getTabla();
+		return lFinal.get(lFinal.size()-1).getPosition();
 	}
 }
