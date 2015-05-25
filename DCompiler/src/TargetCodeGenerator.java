@@ -115,11 +115,11 @@ public class TargetCodeGenerator {
 		}
 		else if(operador.equals("GoToF")){
 			res="CMP "+getValue(instruccion[2])+",#"+0+"\n";
-			res="BEQ "+instruccion[1];
+			res+="BEQ "+instruccion[1];
 		}
 		else if(operador.equals("GoToT")){
 			res="CMP "+getValue(instruccion[2])+",#"+1+"\n";
-			res="BEQ "+instruccion[1];
+			res+="BEQ "+instruccion[1];
 		}
 		else if(operador.equals("GoTo")){
 			res="B "+instruccion[1];

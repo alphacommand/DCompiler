@@ -15,6 +15,7 @@ MOV R5,#2
 CMP R4,R5
 MOVLT R4,#1
 MOVGE R4,#0
+CMP R4,#0
 BEQ label1
 MOV R4,#1
 pop {R5}
