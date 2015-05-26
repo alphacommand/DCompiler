@@ -4,7 +4,7 @@ class fact{
 		char letra;
 	}
 	void main(){
-		struct letra letraA[3];
+		struct letra letraA[26];
 		int cont;
 		int base;
 		base=97;
