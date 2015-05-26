@@ -173,7 +173,7 @@ public class TargetCodeGenerator {
 			res+="LDR R0,=_scanformat\n";
 			res+="BL scanf\n";
 			res+="LDR R1,=input\n";
-			res+="LDR "+getValue(instruccion[1])+",R1";
+			res+="LDR "+getValue(instruccion[1])+",[R1,R11]";
 			
 		}
 		else{
