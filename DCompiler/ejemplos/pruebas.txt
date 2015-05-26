@@ -12,9 +12,9 @@ class fact{
 		while ( cont < 3 ){
 			letraA[cont].codigo=cont+base;
 			letraA[cont].letra=(char)(cont+base);
-			cont=cont+1;
 			print(letraA[cont].codigo);
 			print(letraA[cont].letra);
+			cont=cont+1;
 		}
 	}
 }
