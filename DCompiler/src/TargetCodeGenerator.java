@@ -31,7 +31,7 @@ public class TargetCodeGenerator {
 		}
 		//codigo final
 		targetCode+="pop {pc}\n"
-				+ "_IndexOutOfBounds:\n"
+				+ "IndexOutOfBounds:\n"
 				+ "LDR R0, =_IOOB\n"
 				+ "BL puts\n"
 				+"_salir:\n"
@@ -179,6 +179,9 @@ public class TargetCodeGenerator {
 			res+="LDR R1,=input\n";
 			res+="LDR "+getValue(instruccion[1])+",[R1,#0]";
 			
+		}
+		else if(operador.equals("errorI")){
+			res="B _IOOB";
 		}
 		else{
 			res="";
