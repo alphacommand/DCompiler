@@ -76,6 +76,7 @@ statement
 	|	'return' (expression)? ';'						#returnStatement //check
 	|	methodCall ';'									#methodCallStatement //check
 	|	location '='  expression ';'					#assignStatement	//check
+	|   'print' '(' expression')' ';'					#printStatement 
 	;
 	
 location
@@ -183,4 +184,5 @@ factor 							//check
 	| methodCall				#factorMethodCall //todavia no
 	| literal					#factorLiteral
 	| '(' expression ')'		#factorExpression
+	| 'input' '(' ')' 			#factorInput
 	;

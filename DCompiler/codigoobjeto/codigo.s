@@ -5,16 +5,16 @@ LDR R11, =_dataGlobal
 push {lr}
 BL main0
 B _salir
-fact0:
+fibonacci0:
 pop {R4}
 STR R4,[R11,#0]
 push {lr}
 MOV R4,#0
 LDR R4,[R11,R4]
-MOV R5,#1
+MOV R5,#2
 CMP R4,R5
-MOVEQ R4,#1
-MOVNE R4,#0
+MOVLT R4,#1
+MOVGE R4,#0
 CMP R4,#0
 BEQ label1
 MOV R4,#1
@@ -26,24 +26,49 @@ LDR R4,[R11,#0]
 push {R4}
 LDR R4,[R11,#4]
 push {R4}
+LDR R4,[R11,#8]
+push {R4}
 MOV R4,#0
 LDR R4,[R11,R4]
 MOV R5,#1
 SUB R4,R4,R5
 push {R4}
-BL fact0
+BL fibonacci0
 pop {R4}
+pop {R5}
+STR R5,[R11,#8]
 pop {R5}
 STR R5,[R11,#4]
 pop {R5}
 STR R5,[R11,#0]
-MOV R5,#0
-LDR R5,[R11,R5]
-MUL R4,R4,R5
 MOV R5,#4
+STR R4,[R11,R5]
+LDR R4,[R11,#0]
+push {R4}
+LDR R4,[R11,#4]
+push {R4}
+LDR R4,[R11,#8]
+push {R4}
+MOV R4,#0
+LDR R4,[R11,R4]
+MOV R5,#2
+SUB R4,R4,R5
+push {R4}
+BL fibonacci0
+pop {R4}
+pop {R5}
+STR R5,[R11,#8]
+pop {R5}
+STR R5,[R11,#4]
+pop {R5}
+STR R5,[R11,#0]
+MOV R5,#8
 STR R4,[R11,R5]
 MOV R4,#4
 LDR R4,[R11,R4]
+MOV R5,#8
+LDR R5,[R11,R5]
+ADD R4,R4,R5
 pop {R5}
 push {R4}
 MOV pc,R5
@@ -51,17 +76,23 @@ main0:
 push {lr}
 LDR R4,[R11,#0]
 push {R4}
-MOV R4,#3
+LDR R1,=input
+LDR R0,=_scanformat
+BL scanf
+LDR R1,=input
+LDR R4,R1
 push {R4}
-BL fact0
+BL fibonacci0
 pop {R4}
 pop {R5}
 STR R5,[R11,#0]
 MOV R5,#0
 STR R4,[R11,R5]
+MOV R4,#0
+LDR R4,[R11,R4]
 LDR R0, =_formatoInt
-	MOV R1, R4	
-	BL printf
+MOV R1,R4
+BL printf
 pop {pc}
 _salir:
 mov r0, #0
@@ -74,5 +105,12 @@ _IOOB:
 	.asciz "El indice no esta dentro del rango del arreglo "
 _formatoInt:
 	.asciz "%d\n"
+_formatoChar:
+	.asciz "%c\n"
+_scanformat:
+	.asciz "%d"
+input:
+	.word 0
+
 _dataGlobal:
-	.space 8
+	.space 12

@@ -30,7 +30,26 @@ public class TargetCodeGenerator {
 			
 		}
 		//codigo final
-		targetCode+="pop {pc}\n_salir:\nmov r0, #0\nmov r3, #0\nldmfd sp!, {lr}\nBX lr\n.section .data\n.align 2\n_IOOB:\n\t.asciz \"El indice no esta dentro del rango del arreglo \"\n_formatoInt:\n\t.asciz \"%d\\n\"\n_dataGlobal:\n\t.space "+max;
+		targetCode+="pop {pc}\n"
+				+"_salir:\n"
+				+"mov r0, #0\n"
+				+ "mov r3, #0\n"
+				+ "ldmfd sp!, {lr}\n"
+				+ "BX lr\n"
+				+ ".section .data\n"
+				+ ".align 2\n"
+				+ "_IOOB:\n"
+				+ "\t.asciz \"El indice no esta dentro del rango del arreglo \"\n"
+				+ "_formatoInt:\n"
+				+ "\t.asciz \"%d\\n\"\n"
+				+ "_formatoChar:\n"
+				+ "\t.asciz \"%c\\n\"\n"
+				+ "_scanformat:\n"
+				+ "\t.asciz \"%d\"\n"
+				+ "input:\n"
+				+ "\t.word 0\n"
+				+ "\n_dataGlobal:\n"
+				+ "\t.space "+max;
 	}
 	//*************************************************************************************************************
 	//Getters and Setters
@@ -138,6 +157,24 @@ public class TargetCodeGenerator {
 		}
 		else if(operador.equals("returndir")){
 			res="push {lr}";
+		}
+		else if(operador.equals("printn")){
+			res="LDR R0, =_formatoInt\n";
+			res+="MOV R1,"+getValue(instruccion[1])+"\n";
+			res+="BL printf";
+		}
+		else if(operador.equals("printc")){
+			res="LDR R0, =_formatoChar\n";
+			res+="MOV R1,"+getValue(instruccion[1])+"\n";
+			res+="BL printf";
+		}
+		else if(operador.equals("input")){
+			res="LDR R1,=input\n";
+			res+="LDR R0,=_scanformat\n";
+			res+="BL scanf\n";
+			res+="LDR R1,=input\n";
+			res+="LDR "+getValue(instruccion[1])+",R1";
+			
 		}
 		else{
 			res="";

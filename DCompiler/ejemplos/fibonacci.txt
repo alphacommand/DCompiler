@@ -11,6 +11,7 @@ class program{
 	}
 	void main(){
 		int res;
-		res=fibonacci(5);
+		res=fibonacci(input());
+		print(res);
 	}
 }

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import Tabla_Simbolos.Firma;
 import Tabla_Simbolos.TablaSimbolos;
 import Tabla_Simbolos.Tipo;
@@ -35,7 +37,32 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 		return res;
 	}
 	//Ingresa a tipo e ingresa sus metodos
-	
+	public Tipo visitFactorInput(DECAFParser.FactorInputContext ctx) { 
+		//generacion de codigo
+		String temp=getTemp();
+		addToCode(input(temp));
+		Tipo res=tablaSimbolos.intType();
+		res.setTemp(temp);;
+		return res;
+	}
+	public Tipo visitPrintStatement(DECAFParser.PrintStatementContext ctx) { 
+		Tipo input=visit(ctx.expression());
+		if(input.getNombre().equals("char")){
+			addToCode(printChar(input.getTemp()));
+			freeTemp(input.getTemp());
+			return tablaSimbolos.correct();
+		}
+		else if (input.getNombre().equals("int")){
+			addToCode(printNum(input.getTemp()));
+			freeTemp(input.getTemp());
+			return tablaSimbolos.correct();
+		}
+		else{
+			tablaSimbolos.addError("Print value has to be int or char (Line: "+ctx.stop.getCharPositionInLine()+")");
+			return tablaSimbolos.incorrect();
+		}
+		
+	}
 	public  Tipo visitMethodDeclaration(DECAFParser.MethodDeclarationContext ctx){
 		isReturn = false;
 		tablaSimbolos.enter(position);
@@ -765,7 +792,18 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 		}
 		return res;
 	}
-	
+	public String input(String input){
+		String res="input_"+input;
+		return res;
+	}
+	public String printChar(String temp){
+		String res="printc_"+temp;
+		return res;
+	}
+	public String printNum(String temp){
+		String res="printn_"+temp;
+		return res;
+	}
 	//labels
 	public String newLabel(){
 		labelCount++;
