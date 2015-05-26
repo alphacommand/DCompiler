@@ -80,7 +80,8 @@ public class TargetCodeGenerator {
 			res="SUB "+getValue(instruccion[1])+","+getValue(instruccion[2])+","+getValue(instruccion[3]);
 		}
 		else if(operador.equals("mul")){
-			res="MUL "+getValue(instruccion[1])+","+getValue(instruccion[2])+","+getValue(instruccion[3]);
+			res="MOV R0,"+getValue(instruccion[3])+"\n";
+			res+="MUL "+getValue(instruccion[1])+","+getValue(instruccion[2])+",R0";
 		}
 		else if(operador.equals("div")){
 			res="pendiente";
