@@ -84,6 +84,7 @@ mov r0, #0
 mov r3, #0
 ldmfd sp!, {lr}
 BX lr
+
 .section .data
 .align 2
 _IOOB:
