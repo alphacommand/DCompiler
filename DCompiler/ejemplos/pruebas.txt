@@ -1,0 +1,20 @@
+class fact{
+	struct letra{
+		int codigo;
+		char letra;
+	}
+	void main(){
+		struct letra letraA[3];
+		int cont;
+		int base;
+		base=97;
+		cont=0;
+		while ( cont < 3 ){
+			letraA[cont].codigo=cont+base;
+			letraA[cont].letra=(char)(cont+base);
+			cont=cont+1;
+			print(letraA[cont].codigo);
+			print(letraA[cont].letra);
+		}
+	}
+}

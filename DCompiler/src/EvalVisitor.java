@@ -332,6 +332,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 						addToCode(binaryOP(offset,"*",indice.getTemp(),tipoActual.getByteSize()+""));
 						addToCode(binaryOP(currentTemp,"+",offset,currentTemp));
 						freeTemp(offset);
+						freeTemp(indice.getTemp());
 						tipoActual.setTemp(currentTemp);
 						return visit(ctx.location());
 					}
@@ -362,13 +363,14 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 	//para declaracion de variables simples
 	public Tipo visitDeclSimple(DECAFParser.DeclSimpleContext ctx){
 		String nameType=ctx.varType().getText();
-		addComment("varname: "+ctx.ID().getText()+"-position: "+position);
+		
 		if(nameType.startsWith("s")){
 			nameType=nameType.replace("struct", "");
 			nameType=nameType.replace(" ", "");
 		}
 		try {
 			if(tipoActual==null){
+				addComment("varname: "+ctx.ID().getText()+"-position: "+position);
 				Tipo found=tablaSimbolos.searchTipo(nameType);
 				if(found==null){
 					tablaSimbolos.addError("Type: "+nameType+" non existent (Line: "+ctx.start.getLine()+")");
@@ -390,7 +392,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 				}
 				if(tipoActual.addAtrib(new VarDec(ctx.ID().getText(),found,0,position))){
 					//actualizar la posicion
-					position+=found.getByteSize();
+					//position+=found.getByteSize();
 					return tablaSimbolos.correct();
 				}
 				tablaSimbolos.addError("Atribute "+ctx.ID().getText()+" alredy exits (Line: "+ctx.start.getLine()+")");
@@ -404,7 +406,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 	//para declaracion de variables array
 	public Tipo visitDeclArray(DECAFParser.DeclArrayContext ctx){
 		String nameType=ctx.varType().getText();
-		addComment("varname: "+ctx.ID().getText()+"-position: "+position);
+		
 		if(nameType.startsWith("s")){
 			nameType=nameType.replace("struct", "");
 			nameType=nameType.replace(" ", "");
@@ -415,6 +417,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 				return tablaSimbolos.incorrect();
 			}
 			if(tipoActual==null){
+				addComment("varname: "+ctx.ID().getText()+"-position: "+position);
 				Tipo found=tablaSimbolos.searchTipo(nameType);
 				if(found==null){
 					tablaSimbolos.addError("Type: "+nameType+" non existent (Line: "+ctx.start.getLine()+")");
@@ -428,6 +431,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 				return tablaSimbolos.correct();
 			}
 			else{
+				
 				Tipo found=tablaSimbolos.searchTipo(nameType);
 				if(found==null){
 					tablaSimbolos.addError("Type: "+nameType+" non existent (Line: "+ctx.start.getLine()+")");
@@ -435,7 +439,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 				}
 				if(tipoActual.addAtrib(new VarDec(ctx.ID().getText(),found,Integer.parseInt(ctx.NUM().getText()),position))){
 					//actualizar posicion
-					position+=found.getByteSize()*Integer.parseInt(ctx.NUM().getText());
+					//position+=found.getByteSize()*Integer.parseInt(ctx.NUM().getText());
 					return tablaSimbolos.correct();
 				}
 				tablaSimbolos.addError("Atribute "+ctx.ID().getText()+" alredy exits (Line: "+ctx.start.getLine()+")");
