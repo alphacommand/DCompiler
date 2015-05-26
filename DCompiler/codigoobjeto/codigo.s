@@ -16,7 +16,7 @@ STR R4,[R11,R5]
 label1:
 MOV R4,#24
 LDR R4,[R11,R4]
-MOV R5,#3
+MOV R5,#26
 CMP R4,R5
 MOVLT R4,#1
 MOVGE R4,#0
@@ -79,12 +79,14 @@ STR R4,[R11,R5]
 B label1
 label2:
 pop {pc}
+_IndexOutOfBounds:
+LDR R0, =_IOOB
+BL puts
 _salir:
 mov r0, #0
 mov r3, #0
 ldmfd sp!, {lr}
 BX lr
-
 .section .data
 .align 2
 _IOOB:

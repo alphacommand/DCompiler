@@ -9,7 +9,7 @@ class fact{
 		int base;
 		base=97;
 		cont=0;
-		while ( cont < 3 ){
+		while ( cont < 26 ){
 			letraA[cont].codigo=cont+base;
 			letraA[cont].letra=(char)(cont+base);
 			print(letraA[cont].codigo);

@@ -293,6 +293,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 			if(resultado.getNombre().equals("int")){
 				if(var.isList()){
 					String offtemp=getTemp();
+					//revisar index out of bounds
 					addToCode(binaryOP(offtemp,"*",resultado.getTemp(),var.getTipo().getByteSize()+""));
 					addToCode(binaryOP(currentTemp,"+",currentTemp,offtemp));
 					freeTemp(offtemp);
@@ -329,6 +330,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 					if(indice.getNombre().equals("int")){
 						tipoActual=var.getTipo();
 						String offset=getTemp();
+						//revisar index out of bounds
 						addToCode(binaryOP(offset,"*",indice.getTemp(),tipoActual.getByteSize()+""));
 						addToCode(binaryOP(currentTemp,"+",offset,currentTemp));
 						freeTemp(offset);

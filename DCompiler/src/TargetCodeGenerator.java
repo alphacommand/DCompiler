@@ -31,6 +31,9 @@ public class TargetCodeGenerator {
 		}
 		//codigo final
 		targetCode+="pop {pc}\n"
+				+ "_IndexOutOfBounds:\n"
+				+ "LDR R0, =_IOOB\n"
+				+ "BL puts\n"
 				+"_salir:\n"
 				+"mov r0, #0\n"
 				+ "mov r3, #0\n"
