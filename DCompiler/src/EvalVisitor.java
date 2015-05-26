@@ -264,6 +264,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 				tipoActual=null;
 				return tablaSimbolos.incorrect();
 			}
+			addToCode(binaryOP(currentTemp,"+",currentTemp,var.getPosition()+""));
 		}
 		else{
 			var=tablaSimbolos.searchVar(ctx.ID().getText());
@@ -318,8 +319,9 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 						tablaSimbolos.addError("Cannot operate list, must use indexes (Line: "+ctx.start.getLine()+")");
 						return tablaSimbolos.incorrect();
 					}
+					System.out.println("a:"+('a'+0));
 					tipoActual.setTemp(currentTemp);
-					addToCode(binaryOP(currentTemp,"+",currentTemp,var.getPosition()+""));
+					//addToCode(binaryOP(currentTemp,"+",currentTemp,var.getPosition()+""));
 					return visit(ctx.location());
 				}
 				else{
@@ -328,7 +330,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 						tipoActual=var.getTipo();
 						String offset=getTemp();
 						addToCode(binaryOP(offset,"*",indice.getTemp(),tipoActual.getByteSize()+""));
-						addToCode(binaryOP(currentTemp,"+",offset,var.getPosition()+""));
+						addToCode(binaryOP(currentTemp,"+",offset,currentTemp));
 						freeTemp(offset);
 						tipoActual.setTemp(currentTemp);
 						return visit(ctx.location());
@@ -458,14 +460,15 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 	}
 	
 	public Tipo visitChar_literal(DECAFParser.Char_literalContext ctx){
-		Tipo res=tablaSimbolos.intType();
+		Tipo res=tablaSimbolos.charType();
 		String temp=getTemp();
 		res.setTemp(temp);
-		addToCode(assign(temp,(ctx.getText().charAt(0)+0)+""));
+		
+		addToCode(assign(temp,(ctx.getText().charAt(1)+0)+""));
 		return res;
 	}
 	public Tipo visitBool_literal(DECAFParser.Bool_literalContext ctx){
-		Tipo res=tablaSimbolos.intType();
+		Tipo res=tablaSimbolos.boolType();
 		String temp=getTemp();
 		res.setTemp(temp);
 		String value="";
