@@ -111,6 +111,5 @@ _scanformat:
 	.asciz "%d"
 input:
 	.word 0
-
 _dataGlobal:
 	.space 12

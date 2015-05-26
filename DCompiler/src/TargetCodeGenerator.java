@@ -48,7 +48,7 @@ public class TargetCodeGenerator {
 				+ "\t.asciz \"%d\"\n"
 				+ "input:\n"
 				+ "\t.word 0\n"
-				+ "\n_dataGlobal:\n"
+				+ "_dataGlobal:\n"
 				+ "\t.space "+max;
 	}
 	//*************************************************************************************************************
