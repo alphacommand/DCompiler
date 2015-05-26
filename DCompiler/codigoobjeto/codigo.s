@@ -80,7 +80,7 @@ LDR R1,=input
 LDR R0,=_scanformat
 BL scanf
 LDR R1,=input
-LDR R4,[R1,R11]
+LDR R4,[R1,#0]
 push {R4}
 BL fibonacci0
 pop {R4}
