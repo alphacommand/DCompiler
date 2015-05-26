@@ -1,0 +1,25 @@
+class program{
+	int ackermann(int m, int n){
+		int tempo;
+		if(m == 0){
+			return n+1;
+		}
+		if(n == 0){
+			return ackermann(m-1,1);
+		}		
+		tempo = ackermann(m,n-1);
+		return ackermann(m-1, tempo);
+	}
+	
+	void main(){
+		int re;
+		int m;
+		int n;
+		m = 2;
+		n = 2;		
+		re = ackermann(m,n);
+		
+		print (re);
+	}	
+}
+

@@ -191,6 +191,9 @@ public class TablaSimbolos {
 	public int lastDir(){
 		TablaVariables aFinal=ambitos.get(ambitos.size()-1);
 		ArrayList<VarDec> lFinal=aFinal.getTabla();
+		if(lFinal.size()==0){
+			return aFinal.getStartPos();
+		}
 		return lFinal.get(lFinal.size()-1).getPosition();
 	}
 }
