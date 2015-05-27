@@ -123,16 +123,16 @@ public class TargetCodeGenerator {
 			res+="MUL "+getValue(instruccion[1])+","+getValue(instruccion[2])+",R0";
 		}
 		else if(operador.equals("div")){
-			res="MOV R0,"+instruccion[2]+"\n";
-			res+="MOV R1,"+instruccion[3]+"\n";
+			res="MOV R0,"+getValue(instruccion[2])+"\n";
+			res+="MOV R1,"+getValue(instruccion[3])+"\n";
 			res+="BL DivideU32\n";
-			res+="MOV "+instruccion[1]+",R0";
+			res+="MOV "+getValue(instruccion[1])+",R0";
 		}
 		else if(operador.equals("mod")){
-			res="MOV R0,"+instruccion[2]+"\n";
-			res+="MOV R1,"+instruccion[3]+"\n";
+			res="MOV R0,"+getValue(instruccion[2])+"\n";
+			res+="MOV R1,"+getValue(instruccion[3])+"\n";
 			res+="BL DivideU32\n";
-			res+="MOV "+instruccion[1]+",R1";
+			res+="MOV "+getValue(instruccion[1])+",R1";
 		}
 		else if(operador.equals("lt")){
 			res="CMP "+getValue(instruccion[2])+","+getValue(instruccion[3])+"\n";
