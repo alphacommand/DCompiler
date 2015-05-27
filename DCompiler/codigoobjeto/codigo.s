@@ -111,10 +111,18 @@ push {R4}
 MOV pc,R5
 main0:
 push {lr}
-MOV R4,#1
+LDR R1,=input
+LDR R0,=_scanformat
+BL scanf
+LDR R1,=input
+LDR R4,[R1,#0]
 MOV R5,#4
 STR R4,[R11,R5]
-MOV R4,#4
+LDR R1,=input
+LDR R0,=_scanformat
+BL scanf
+LDR R1,=input
+LDR R4,[R1,#0]
 MOV R5,#8
 STR R4,[R11,R5]
 LDR R4,[R11,#4]
