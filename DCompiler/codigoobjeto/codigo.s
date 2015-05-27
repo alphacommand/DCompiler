@@ -111,10 +111,10 @@ push {R4}
 MOV pc,R5
 main0:
 push {lr}
-MOV R4,#2
+MOV R4,#1
 MOV R5,#4
 STR R4,[R11,R5]
-MOV R4,#1
+MOV R4,#4
 MOV R5,#8
 STR R4,[R11,R5]
 LDR R4,[R11,#0]
