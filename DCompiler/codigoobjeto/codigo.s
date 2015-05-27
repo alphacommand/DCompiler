@@ -135,7 +135,20 @@ pop {R5}
 STR R5,[R11,#4]
 MOV R5,#0
 STR R4,[R11,R5]
+MOV R4,#114
+LDR R0, =_formatoChar
+MOV R1,R4
+BL printf
 MOV R4,#0
+LDR R4,[R11,R4]
+LDR R0, =_formatoInt
+MOV R1,R4
+BL printf
+MOV R4,#99
+LDR R0, =_formatoChar
+MOV R1,R4
+BL printf
+MOV R4,#4
 LDR R4,[R11,R4]
 LDR R0, =_formatoInt
 MOV R1,R4
