@@ -922,6 +922,7 @@ public class EvalVisitor extends DECAFBaseVisitor<Tipo>{
 	}
 	public String loadState(){
 		String res="";
+		System.out.println("res"+tablaSimbolos.lastDir());
 		int count=tablaSimbolos.lastDir();
 		ArrayList<VarDec>state=tablaSimbolos.getState();
 		for(int i=state.size()-1;i>=0;i--){

@@ -195,7 +195,7 @@ public class TablaSimbolos {
 		ArrayList<VarDec> lFinal=aFinal.getTabla();
 		if(lFinal.size()==0){
 			System.out.println("es cero"+aFinal.getStartPos());
-			return aFinal.getStartPos();
+			return aFinal.getStartPos()-4;
 		}
 		System.out.println("no es cero"+lFinal.get(lFinal.size()-1).getPosition());
 		return lFinal.get(lFinal.size()-1).getPosition();
