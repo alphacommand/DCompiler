@@ -5,110 +5,6 @@ LDR R11, =_dataGlobal
 push {lr}
 BL main0
 B _salir
-ackermann0:
-pop {R4}
-STR R4,[R11,#8]
-pop {R4}
-STR R4,[R11,#4]
-push {lr}
-MOV R4,#4
-LDR R4,[R11,R4]
-MOV R5,#0
-CMP R4,R5
-MOVEQ R4,#1
-MOVNE R4,#0
-CMP R4,#0
-BEQ label1
-MOV R4,#8
-LDR R4,[R11,R4]
-MOV R5,#1
-ADD R4,R4,R5
-pop {R5}
-push {R4}
-MOV pc,R5
-label1:
-MOV R4,#8
-LDR R4,[R11,R4]
-MOV R5,#0
-CMP R4,R5
-MOVEQ R4,#1
-MOVNE R4,#0
-CMP R4,#0
-BEQ label2
-LDR R4,[R11,#4]
-push {R4}
-LDR R4,[R11,#8]
-push {R4}
-LDR R4,[R11,#12]
-push {R4}
-MOV R4,#4
-LDR R4,[R11,R4]
-MOV R5,#1
-SUB R4,R4,R5
-push {R4}
-MOV R4,#1
-push {R4}
-BL ackermann0
-pop {R4}
-pop {R5}
-STR R5,[R11,#16]
-pop {R5}
-STR R5,[R11,#12]
-pop {R5}
-STR R5,[R11,#8]
-pop {R5}
-push {R4}
-MOV pc,R5
-label2:
-LDR R4,[R11,#4]
-push {R4}
-LDR R4,[R11,#8]
-push {R4}
-LDR R4,[R11,#12]
-push {R4}
-MOV R4,#4
-LDR R4,[R11,R4]
-push {R4}
-MOV R4,#8
-LDR R4,[R11,R4]
-MOV R5,#1
-SUB R4,R4,R5
-push {R4}
-BL ackermann0
-pop {R4}
-pop {R5}
-STR R5,[R11,#12]
-pop {R5}
-STR R5,[R11,#8]
-pop {R5}
-STR R5,[R11,#4]
-MOV R5,#12
-STR R4,[R11,R5]
-LDR R4,[R11,#4]
-push {R4}
-LDR R4,[R11,#8]
-push {R4}
-LDR R4,[R11,#12]
-push {R4}
-MOV R4,#4
-LDR R4,[R11,R4]
-MOV R5,#1
-SUB R4,R4,R5
-push {R4}
-MOV R4,#12
-LDR R4,[R11,R4]
-push {R4}
-BL ackermann0
-pop {R4}
-pop {R5}
-STR R5,[R11,#12]
-pop {R5}
-STR R5,[R11,#8]
-pop {R5}
-STR R5,[R11,#4]
-pop {R5}
-push {R4}
-MOV pc,R5
 main0:
 push {lr}
 LDR R1,=input
@@ -116,34 +12,43 @@ LDR R0,=_scanformat
 BL scanf
 LDR R1,=input
 LDR R4,[R1,#0]
-MOV R5,#4
+MOV R5,#8
 STR R4,[R11,R5]
 LDR R1,=input
 LDR R0,=_scanformat
 BL scanf
 LDR R1,=input
 LDR R4,[R1,#0]
-MOV R5,#8
+MOV R5,#12
 STR R4,[R11,R5]
-LDR R4,[R11,#4]
-push {R4}
-LDR R4,[R11,#8]
-push {R4}
-MOV R4,#4
-LDR R4,[R11,R4]
-push {R4}
 MOV R4,#8
 LDR R4,[R11,R4]
-push {R4}
-BL ackermann0
-pop {R4}
-pop {R5}
-STR R5,[R11,#8]
-pop {R5}
-STR R5,[R11,#4]
+MOV R5,#12
+LDR R5,[R11,R5]
+pendiente
 MOV R5,#0
 STR R4,[R11,R5]
+MOV R4,#8
+LDR R4,[R11,R4]
+MOV R5,#12
+LDR R5,[R11,R5]
+pendiente
+MOV R5,#4
+STR R4,[R11,R5]
+MOV R4,#100
+LDR R0, =_formatoChar
+MOV R1,R4
+BL printf
 MOV R4,#0
+LDR R4,[R11,R4]
+LDR R0, =_formatoInt
+MOV R1,R4
+BL printf
+MOV R4,#109
+LDR R0, =_formatoChar
+MOV R1,R4
+BL printf
+MOV R4,#4
 LDR R4,[R11,R4]
 LDR R0, =_formatoInt
 MOV R1,R4
@@ -170,4 +75,4 @@ _scanformat:
 input:
 	.word 0
 _dataGlobal:
-	.space 16
+	.space 8

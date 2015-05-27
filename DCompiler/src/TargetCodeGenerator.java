@@ -13,7 +13,43 @@ public class TargetCodeGenerator {
 		targetCode="";
 		String[] inputs=code.split("\n");
 		//codigo inicial
-		targetCode+=".globl main\nmain:\nstmfd sp!, {lr}\nLDR R11, =_dataGlobal\npush {lr}\nBL main0\nB _salir\n";
+		targetCode+=".globl main\n"
+				+ "main:\n"
+				+ "stmfd sp!, {lr}\n"
+				+ "LDR R11, =_dataGlobal\n"
+				+ "push {lr}\n"
+				+ "BL main0\n"
+				+ "B _salir\n"
+				+ "DivideU32:\n"
+				+ "\tresult .req r0\n"
+				+ "\tremainder .req r1\n"
+				+ "\tshift .req r2\n"
+				+ "\tcurrent .req r3\n"
+				+ "\tclz shift,r1\n"
+				+ "\tclz r3,r0\n"
+				+ "\tsubs shift,r3\n"
+				+ "\tlsl current,r1,shift\n"
+				+ "\tmov remainder,r0\n"
+				+ "\tmov result,#0\n"
+				+ "\tblt divideU32Return$\n"
+				+ "\tdivideU32Loop$:\n"
+				+ "\t\tcmp remainder,current\n"
+				+ "\t\tblt divideU32LoopContinue$\n"
+				+ "\t\tadd result,result,#1\n"
+				+ "\t\tsubs remainder,current\n"
+				+ "\t\tlsleq result,shift\n"
+				+ "\t\tbeq divideU32Return$\n"
+				+ "\tdivideU32LoopContinue$:\n"
+				+ "\t\tsubs shift,#1\n"
+				+ "\t\tlsrge current,#1\n"
+				+ "\t\tlslge result,#1\n"
+				+ "\t\tbge divideU32Loop$\n"
+				+ "\tdivideU32Return$:\n"
+				+ "\t\t.unreq current\n"
+				+ "\t\tmov pc,lr\n"
+				+ "\t\t.unreq result\n"
+				+ "\t\t.unreq remainder\n"
+				+ "\t\t.unreq shift\n";
 		for(int i=0;i<inputs.length;i++){
 			String actual=inputs[i].trim();
 			if((!actual.equals(""))&&(!actual.contains("--"))){
@@ -87,10 +123,16 @@ public class TargetCodeGenerator {
 			res+="MUL "+getValue(instruccion[1])+","+getValue(instruccion[2])+",R0";
 		}
 		else if(operador.equals("div")){
-			res="pendiente";
+			res="MOV R0,"+instruccion[2]+"\n";
+			res+="MOV R1,"+instruccion[3]+"\n";
+			res+="BL DivideU32\n";
+			res+="MOV "+instruccion[1]+",R0";
 		}
 		else if(operador.equals("mod")){
-			res="pendiente";
+			res="MOV R0,"+instruccion[2]+"\n";
+			res+="MOV R1,"+instruccion[3]+"\n";
+			res+="BL DivideU32\n";
+			res+="MOV "+instruccion[1]+",R1";
 		}
 		else if(operador.equals("lt")){
 			res="CMP "+getValue(instruccion[2])+","+getValue(instruccion[3])+"\n";
@@ -188,6 +230,7 @@ public class TargetCodeGenerator {
 			for(int i=0;i<instruccion.length;i++){
 				res+=instruccion[i];
 			}
+			res+="\n";
 		}
 		return res+"\n";
 	}

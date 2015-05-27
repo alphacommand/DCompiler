@@ -1,0 +1,17 @@
+class program{
+	int resd;
+	int resm;
+	void main(){
+		int m;
+		int n;
+		m = input();
+		n = input();		
+		resd = m/n;
+		resm = m%n;
+		print ('d');
+		print (resd);
+		print ('m');
+		print (resm);
+	}	
+}
+
