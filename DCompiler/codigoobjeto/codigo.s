@@ -35,61 +35,120 @@ DivideU32:
 		.unreq result
 		.unreq remainder
 		.unreq shift
+fibonacci0:
+
+pop {R4}
+STR R4,[R11,#0]
+push {lr}
+MOV R4,#0
+LDR R4,[R11,R4]
+MOV R5,#2
+CMP R4,R5
+MOVLT R4,#1
+MOVGE R4,#0
+CMP R4,#0
+BEQ label1
+MOV R4,#1
+pop {R5}
+push {R4}
+MOV pc,R5
+label1:
+
+LDR R4,[R11,#0]
+push {R4}
+LDR R4,[R11,#4]
+push {R4}
+LDR R4,[R11,#8]
+push {R4}
+MOV R4,#0
+LDR R4,[R11,R4]
+MOV R5,#1
+SUB R4,R4,R5
+push {R4}
+BL fibonacci0
+pop {R4}
+pop {R5}
+STR R5,[R11,#8]
+pop {R5}
+STR R5,[R11,#4]
+pop {R5}
+STR R5,[R11,#0]
+MOV R5,#4
+STR R4,[R11,R5]
+LDR R4,[R11,#0]
+push {R4}
+LDR R4,[R11,#4]
+push {R4}
+LDR R4,[R11,#8]
+push {R4}
+MOV R4,#0
+LDR R4,[R11,R4]
+MOV R5,#2
+SUB R4,R4,R5
+push {R4}
+BL fibonacci0
+pop {R4}
+pop {R5}
+STR R5,[R11,#8]
+pop {R5}
+STR R5,[R11,#4]
+pop {R5}
+STR R5,[R11,#0]
+MOV R5,#8
+STR R4,[R11,R5]
+MOV R4,#4
+LDR R4,[R11,R4]
+MOV R5,#8
+LDR R5,[R11,R5]
+ADD R4,R4,R5
+pop {R5}
+push {R4}
+MOV pc,R5
 main0:
 
 push {lr}
-LDR R1,=input
-LDR R0,=_scanformat
-BL scanf
-LDR R1,=input
-LDR R4,[R1,#0]
-MOV R5,#8
-STR R4,[R11,R5]
-LDR R1,=input
-LDR R0,=_scanformat
-BL scanf
-LDR R1,=input
-LDR R4,[R1,#0]
-MOV R5,#12
-STR R4,[R11,R5]
-MOV R4,#8
-LDR R4,[R11,R4]
-MOV R5,#12
-LDR R5,[R11,R5]
-MOV R0,R4
-MOV R1,R5
-BL DivideU32
-MOV R4,R0
-MOV R5,#0
-STR R4,[R11,R5]
-MOV R4,#8
-LDR R4,[R11,R4]
-MOV R5,#12
-LDR R5,[R11,R5]
-MOV R0,R4
-MOV R1,R5
-BL DivideU32
-MOV R4,R1
+MOV R4,#0
 MOV R5,#4
 STR R4,[R11,R5]
-MOV R4,#100
-LDR R0, =_formatoChar
-MOV R1,R4
-BL printf
+label2:
+
+MOV R4,#4
+LDR R4,[R11,R4]
+MOV R5,#40
+CMP R4,R5
+MOVLE R4,#1
+MOVGT R4,#0
+CMP R4,#0
+BEQ label3
+LDR R4,[R11,#0]
+push {R4}
+LDR R4,[R11,#4]
+push {R4}
+MOV R4,#4
+LDR R4,[R11,R4]
+push {R4}
+BL fibonacci0
+pop {R4}
+pop {R5}
+STR R5,[R11,#8]
+pop {R5}
+STR R5,[R11,#4]
+MOV R5,#0
+STR R4,[R11,R5]
 MOV R4,#0
 LDR R4,[R11,R4]
 LDR R0, =_formatoInt
 MOV R1,R4
 BL printf
-MOV R4,#109
-LDR R0, =_formatoChar
-MOV R1,R4
-BL printf
 MOV R4,#4
 LDR R4,[R11,R4]
-LDR R0, =_formatoInt
-MOV R1,R4
-BL printf
+MOV R5,#1
+ADD R4,R4,R5
+MOV R5,#4
+STR R4,[R11,R5]
+B label2
+label3:
+
 pop {pc}
 IndexOutOfBounds:
 LDR R0, =_IOOB
@@ -112,4 +171,4 @@ _scanformat:
 input:
 	.word 0
 _dataGlobal:
-	.space 8
+	.space 12

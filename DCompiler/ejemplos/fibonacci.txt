@@ -11,7 +11,12 @@ class program{
 	}
 	void main(){
 		int res;
-		res=fibonacci(input());
-		print(res);
+		int cont;
+		cont=0;
+		while(cont<=40){
+			res=fibonacci(cont)
+			print(res);
+			cont=cont+1;
+		}
 	}
 }
