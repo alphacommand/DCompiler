@@ -5,7 +5,38 @@ LDR R11, =_dataGlobal
 push {lr}
 BL main0
 B _salir
+DivideU32:
+	result .req r0
+	remainder .req r1
+	shift .req r2
+	current .req r3
+	clz shift,r1
+	clz r3,r0
+	subs shift,r3
+	lsl current,r1,shift
+	mov remainder,r0
+	mov result,#0
+	blt divideU32Return$
+	divideU32Loop$:
+		cmp remainder,current
+		blt divideU32LoopContinue$
+		add result,result,#1
+		subs remainder,current
+		lsleq result,shift
+		beq divideU32Return$
+	divideU32LoopContinue$:
+		subs shift,#1
+		lsrge current,#1
+		lslge result,#1
+		bge divideU32Loop$
+	divideU32Return$:
+		.unreq current
+		mov pc,lr
+		.unreq result
+		.unreq remainder
+		.unreq shift
 main0:
+
 push {lr}
 LDR R1,=input
 LDR R0,=_scanformat
@@ -25,14 +56,20 @@ MOV R4,#8
 LDR R4,[R11,R4]
 MOV R5,#12
 LDR R5,[R11,R5]
-pendiente
+MOV R0,t0
+MOV R1,t1
+BL DivideU32
+MOV t0,R0
 MOV R5,#0
 STR R4,[R11,R5]
 MOV R4,#8
 LDR R4,[R11,R4]
 MOV R5,#12
 LDR R5,[R11,R5]
-pendiente
+MOV R0,t0
+MOV R1,t1
+BL DivideU32
+MOV t0,R1
 MOV R5,#4
 STR R4,[R11,R5]
 MOV R4,#100
