@@ -27,7 +27,9 @@ public class TablaSimbolos {
 	}
 	//entrada a un ambito
 	public void enter(int position){
-		ambitos.push(new TablaVariables());
+		TablaVariables nuevo=new TablaVariables();
+		nuevo.setStartPos(position);
+		ambitos.push(nuevo);
 	}
 	//salida de un ambito
 	public int exit(){
@@ -192,8 +194,10 @@ public class TablaSimbolos {
 		TablaVariables aFinal=ambitos.get(ambitos.size()-1);
 		ArrayList<VarDec> lFinal=aFinal.getTabla();
 		if(lFinal.size()==0){
+			System.out.println("es cero"+aFinal.getStartPos());
 			return aFinal.getStartPos();
 		}
+		System.out.println("no es cero"+lFinal.get(lFinal.size()-1).getPosition());
 		return lFinal.get(lFinal.size()-1).getPosition();
 	}
 }

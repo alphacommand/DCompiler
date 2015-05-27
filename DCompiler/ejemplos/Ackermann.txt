@@ -16,7 +16,7 @@ class program{
 		int m;
 		int n;
 		m = 2;
-		n = 2;		
+		n = 1;		
 		re = ackermann(m,n);
 		
 		print (re);

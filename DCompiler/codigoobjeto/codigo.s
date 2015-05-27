@@ -51,11 +51,11 @@ push {R4}
 BL ackermann0
 pop {R4}
 pop {R5}
-STR R5,[R11,#0]
+STR R5,[R11,#12]
 pop {R5}
-STR R5,[R11,#-4]
+STR R5,[R11,#8]
 pop {R5}
-STR R5,[R11,#-8]
+STR R5,[R11,#4]
 pop {R5}
 push {R4}
 MOV pc,R5
@@ -114,7 +114,7 @@ push {lr}
 MOV R4,#2
 MOV R5,#4
 STR R4,[R11,R5]
-MOV R4,#2
+MOV R4,#1
 MOV R5,#8
 STR R4,[R11,R5]
 LDR R4,[R11,#0]
